@@ -5,9 +5,10 @@ from analysis import run_streak, run_streak_one_habit, percent_calc
 from db import return_open_task, update_task, delete_task, return_habit, get_db
 
 
-# cli-Function is used for basic navigation within the solution
+# cli-Function is used for navigation and interaction with the user
 def cli():
     db = get_db()
+    # Check if all due date of all open tasks is not exceeded.
     overdue_tasks(db)
     choice = questionary.select(
         "Welcome to Habi Track! Please select an option:",
@@ -29,20 +30,20 @@ def cli():
                      "Meditation",
                      "Cold shower"]
         ).ask()
-        # Calls function to manage adding new habit
+        # Call function to manage adding new habit
         add_habit_and_task(selected_habit, db)
 
     elif choice == "Create new habit":
         new_habit = questionary.text("What is the name of the habit?").ask()
-        # Calls function to manage adding new habit
+        # Call function to manage adding new habit
         add_habit_and_task(new_habit, db)
 
     elif choice == "Complete habit task":
-        # Call function to select a habit for completion and updating status of task
+        # Call function to select a habit for completion and updating status of the open task to completed
         selected_habit, task_list = select_habit(db)
         completed_task_id, new_due_date, new_counter = get_id_date_counter(task_list, selected_habit)
         update_task(completed_task_id, "completed", db)
-        # Creation of habit task object and store it on the db using Task-class in habit.py
+        # Creation of a new successor habit task object and store it on the db using Task-class in habit.py
         successor_task = Task(selected_habit, new_due_date, new_counter)
         successor_task.task_store(db)
         db.close()
@@ -91,7 +92,7 @@ def cli():
             print(habit_list[["habit_name", "Percent of completed habits"]])
 
     elif choice == "Delete habit":
-        # Call function to select a habit and afterward to delete it
+        # Call functions to select a habit and to delete it
         selected_habit, task_list = select_habit(db)
         delete_task(selected_habit, db)
         db.close()

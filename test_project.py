@@ -30,7 +30,7 @@ def test_creation():
     db.close()
 
 
-# Function if habit is completed until due date
+# General function to be used if habit is completed until due date
 def success(habit_name):
     db = get_db("test.db")
     task_list = return_open_task(db)
@@ -43,7 +43,7 @@ def success(habit_name):
     return new_due_date, new_counter, all_tasks
 
 
-# Function used if habit is not completed until due date
+# General function to be used if habit is not completed until due date
 def missed():
     db = get_db("test.db")
     overdue_tasks(db)
@@ -52,7 +52,7 @@ def missed():
     return all_tasks
 
 
-# Completion of both habit tasks.
+# Start of habit tracking: Completion of both habit tasks.
 # Check if due dates, counter and amount of habit tasks are calculated correctly.
 @freeze_time("2024-04-03")
 def test_success_one():

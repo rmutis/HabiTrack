@@ -2,7 +2,7 @@ import sqlite3
 import pandas as pd
 
 
-# Function to initially create the database with the tables habit and habit_task
+# Initial creation the database with the tables habit and habit_task
 def create_db(db):
     cur = db.cursor()
     cur.execute("""CREATE TABLE IF NOT EXISTS habit (
@@ -18,14 +18,14 @@ def create_db(db):
     db.commit()
 
 
-# Function to connect to database
+# Connect to database
 def get_db(name="database.db"):
     db = sqlite3.connect(name)
     create_db(db)
     return db
 
 
-# Function to insert a new habit in the table habit
+# Insert a new habit in the table habit
 def insert_habit(selected_habit, selected_period, db):
     cur = db.cursor()
     try:
@@ -37,7 +37,7 @@ def insert_habit(selected_habit, selected_period, db):
         exit()
 
 
-# Function to insert a new habit task in the table habit_task
+# Insert a new task in the table habit_task
 def insert_task(habit_name, created, due, status, streak_counter, db):
     cur = db.cursor()
     cur.execute("INSERT INTO habit_task "
@@ -77,7 +77,7 @@ def return_habit(db):
     return current_habits
 
 
-# Delete habit from habit table and task table
+# Delete habit including its tasks from habit table and habit_task table
 def delete_task(selected_habit, db):
     cur = db.cursor()
     cur.execute("DELETE FROM habit WHERE habit_name = ?",

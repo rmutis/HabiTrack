@@ -1,7 +1,7 @@
 from db import return_all_tasks, return_open_task, return_habit
 
 
-# Function to return maximum value of the streak counter for all currently open tasks and all tasks ever of all habits
+# Return maximum value of the streak counter for all currently open tasks and all tasks ever of all habits
 def run_streak(db):
     task_list = return_all_tasks(db)
     open_tasks = return_open_task(db)
@@ -12,7 +12,7 @@ def run_streak(db):
     return open_result, ever_result
 
 
-# Function to return maximum value of the streak counter for all currently open tasks and all tasks ever of one habit
+# Return maximum value of the streak counter for all currently open tasks and all tasks ever of one habit
 def run_streak_one_habit(db, selected_habit):
     task_list = return_all_tasks(db)
     open_tasks = return_open_task(db)
